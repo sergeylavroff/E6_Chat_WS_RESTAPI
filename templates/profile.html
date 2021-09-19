@@ -11,7 +11,7 @@
         <input id="avatar-ld" type="file" name="Загрузить">
     </div>
 </div>
-
+{{ request.user.id|json_script:"user_id" }}
 {% endblock content %}
 
 {% block scripts %}

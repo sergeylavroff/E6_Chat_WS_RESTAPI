@@ -134,6 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/auth/login'
+LOGIN_REDIRECT_URL = '/profile/'
 
 ASGI_APPLICATION = "Chat_WS_RESTAPI.routing.application"
 
