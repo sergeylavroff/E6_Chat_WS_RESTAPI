@@ -57,6 +57,25 @@ async function createChatMessage(message, user_id) {
     return result_json;
 }
 
+async function updateRoomChatters( roomData ) {
+    roomData.chatters.push(user_id)
+    console.log(roomData.chatters)
+    const message_data = new FormData();
+    message_data.append("id", roomData.id)
+    message_data.append("chatters", roomData.chatters)
+    console.log(message_data)
+    const options = {
+    method: 'PATCH',
+    body: message_data,
+    headers: {
+      "X-CSRFToken": csrftoken,
+      }
+    }
+    await fetch(`${host}api/v1/chat/room/manage/${roomData.id}/`, options)
+    .then((response) => { return response.json(); })
+    .catch(() => { console.log('error') });
+}
+
 
 async function sendMessageViaWS() {
     const messageInputDom = document.querySelector('#chat-message-input');
@@ -105,6 +124,9 @@ async function populateChattersList() {
     const chatters_list = document.querySelector('.chatters-in-room')
     let room_data = await getData(`${host}api/v1/chat/room/view/${roomName}/`)
     let chatter;
+    if (!(room_data.chatters.includes(user_id))) {
+        updateRoomChatters(room_data)
+    }
     for (chatter of room_data.chatters) {
         if (chatter !== user_id) {
             let user_profile = await getData(`${host}api/v1/chat/profile/view/${chatter}/`)
@@ -129,8 +151,8 @@ async function sendMessage() {
 
 window.addEventListener('load', () => {
   async function start() {
-    await getRoomHistory(roomName)
     await populateChattersList()
+    await getRoomHistory(roomName)
     await sendMessage()
   }
   start()

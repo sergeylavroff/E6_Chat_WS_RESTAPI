@@ -15,6 +15,5 @@ urlpatterns = [
     path('profile/view/<int:pk>/', views.ProfileAPIView.as_view()),
     path('profile/create/', views.ProfileCreateView.as_view()),
     path('message/get/<int:pk>/', views.MessageOneAPIView.as_view()),
-
     path('profile/update/', views.ProfileUpdateView.as_view()),
 ]

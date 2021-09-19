@@ -49,6 +49,7 @@ class RoomManageAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Room.objects.all()
 
 
+
 class MessageCreateAPIView(generics.CreateAPIView):
     serializer_class = MessageAllSerializer
 

@@ -7,6 +7,15 @@ class RoomAllFields(serializers.ModelSerializer):
         model = Room
         fields = '__all__'
 
+    def update(self, instance, validated_data):
+        submitted_chatters = validated_data.get('chatters')
+        if submitted_chatters:
+            for chatter in submitted_chatters:
+                chatter_instance = Chatter.objects.get(id=chatter.id)
+                instance.chatters.add(chatter_instance)
+        instance.save()
+        return instance
+
 
 class RoomSafeFields(serializers.ModelSerializer):
     password = serializers.SerializerMethodField()
