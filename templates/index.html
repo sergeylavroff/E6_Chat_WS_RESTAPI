@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends 'default.html' %}
+{% load static %}
+
+{% block title %} Список комнат {{ user.username }} {% endblock title %}
+
+{% block content %}
+<div class="title">
+    <p>Список комнат</p>
+</div>
+<div class="rooms">
+    <ul class="list-group rooms-list">
+    </ul>
+</div>
+</br>
+<form class="new-room" method="POST">
+    <p>Создайте новую комнату:</p><br/>
+    <p hidden> User <input type="text" readonly="readonly" value="{{ user.id }}" id="user"></p>
+    <p> Название комнаты <input id="name" type="text" size="100"/></p><br/>
+    <p> Пароль комнаты (необязательно)<input id="pass" type="text" size="100"/></p><br/>
+    <button type='button' id="room-name-submit">Создать</button>
+</form>
+
+
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static '/js/getcookie.js'%}" type="module"></script>
+    <script src="{% static '/js/room_list.js'%}" type="module"></script>
+{% endblock scripts %}
+

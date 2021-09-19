@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% extends 'default.html' %}
+{% load static %}
+
+{% block title %} Профиль {{ user.username }} {% endblock title %}
+
+{% block content %}
+<div class="profile">
+    <div class="avatar">
+        <img src="" alt="Аватарка" width="100px" height="100px" id="avatar">
+        <input id="avatar-ld" type="file" name="Загрузить">
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{% static '/js/getcookie.js'%}" type="module"></script>
+    <script src="{% static '/js/user_profile.js'%}" type="module"></script>
+{% endblock scripts %}
