@@ -59,16 +59,16 @@ async function createChatMessage(message, user_id) {
 
 async function updateRoomChatters( roomData ) {
     roomData.chatters.push(user_id)
-    console.log(roomData.chatters)
-    const message_data = new FormData();
-    message_data.append("id", roomData.id)
-    message_data.append("chatters", roomData.chatters)
-    console.log(message_data)
+    const text = `{
+        "id": ${roomData.id},
+        "chatters": [ ${roomData.chatters} ]
+    }`
     const options = {
     method: 'PATCH',
-    body: message_data,
+    body: text,
     headers: {
       "X-CSRFToken": csrftoken,
+      "Content-Type": "application/json",
       }
     }
     await fetch(`${host}api/v1/chat/room/manage/${roomData.id}/`, options)
